@@ -8,6 +8,7 @@ import { CocktailsController } from './cocktails/cocktails.controller';
 import { Cocktail, CocktailSchema } from './schemes/cocktail.schema';
 import { LocalStrategy } from './auth/local.strategy';
 import { AuthService } from './auth/auth.service';
+import { AdminController } from './admin/admin.controller';
 import config from './config';
 
 @Module({
@@ -18,7 +19,12 @@ import config from './config';
       { name: Cocktail.name, schema: CocktailSchema },
     ]),
   ],
-  controllers: [AppController, UsersController, CocktailsController],
+  controllers: [
+    AppController,
+    UsersController,
+    CocktailsController,
+    AdminController,
+  ],
   providers: [AppService, LocalStrategy, AuthService],
 })
 export class AppModule {}
