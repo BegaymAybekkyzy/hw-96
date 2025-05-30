@@ -4,13 +4,16 @@ import { Model } from 'mongoose';
 import { Request } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { JWT_SECRET, User, UserDocument } from '../schemes/user.schema';
+import { RequestWithUser } from '../types';
 
 @Injectable()
 export class TokenAuthGuard implements CanActivate {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request: Request = context.switchToHttp().getRequest();
+    const request: Request = context
+      .switchToHttp()
+      .getRequest<RequestWithUser>();
     const token = request.get('Authorization')?.replace('Bearer ', '');
     if (!token) {
       return false;
