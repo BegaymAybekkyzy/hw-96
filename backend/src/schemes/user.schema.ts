@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as argon2 from 'argon2';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
+import * as process from 'node:process';
 
 const ARGON2_OPTIONS = {
   type: argon2.argon2id,

@@ -1,6 +1,6 @@
 import { diskStorage } from 'multer';
-import path from 'node:path';
-import fs from 'node:fs';
+import * as path from 'path';
+import * as fs from 'fs';
 import { randomUUID } from 'crypto';
 
 export const imageStorage = () => {
@@ -10,11 +10,11 @@ export const imageStorage = () => {
         let imagePath = '';
 
         if (req.path === '/users') {
-          imagePath = 'avatar';
+          imagePath = 'avatars';
         }
 
         if (req.path === '/cocktails') {
-          imagePath = 'cocktail-image';
+          imagePath = 'cocktail-images';
         }
         const destDir = path.join('public', imagePath);
         fs.mkdirSync(destDir, { recursive: true });

@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Request } from 'express';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { JWT_SECRET, User, UserDocument } from '../schemes/user.schema';
 
 @Injectable()
@@ -12,7 +12,6 @@ export class TokenAuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: Request = context.switchToHttp().getRequest();
     const token = request.get('Authorization')?.replace('Bearer ', '');
-
     if (!token) {
       return false;
     }
@@ -28,7 +27,8 @@ export class TokenAuthGuard implements CanActivate {
       request.user = user;
 
       return true;
-    } catch {
+    } catch (err) {
+      console.error('JWT verification failed:', err);
       return false;
     }
   }
